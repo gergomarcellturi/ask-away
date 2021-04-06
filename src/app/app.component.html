@@ -1,13 +1,1 @@
-<h1>Base</h1>
-
-<div *ngIf="auth.user$ | async as user; else login">
-{{user.email}}
-  <button (click)="auth.signOut()">Sign out</button>
-</div>
-
-<ng-template #login>
-  <button (click)="auth.googleSignIn()">Sign in with Google</button>
-  <button (click)="auth.facebookSignIn()">Sign in with Facebook</button>
-</ng-template>
-
-
+<router-outlet></router-outlet>

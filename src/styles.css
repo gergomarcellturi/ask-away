@@ -2,3 +2,135 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+  --dark-background: rgb(0,0,45);
+  --primary-color: #301357;
+  --primary-color-faded: #301357AA;
+  --secondary-color: #eb960e;
+  --secondary-color-faded: #eb960e3D;
+  --warning-color: #d60027;
+  --confirm-color: #1e873a;
+  --base-font-color: #ffecd9;
+  --base-hint-color: rgba(255, 236, 217, .41);
+
+  --facebook-color: #4267B2;
+  --google-color: #DB4437;
+
+  --login-panel-width: 420px;
+  --login-panel-heigth: 600px;
+}
+
+.basic-input {
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: .6rem;
+  border-radius: 3px;
+  width: 3rem;
+  outline: none;
+}
+
+/* // BUTTON //*/
+
+.button {
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid var(--secondary-color);
+  border-radius: 0.6em;
+  color: var(--secondary-color);
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: center;
+  align-self: center;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: .5rem;
+  padding: 1.2em 1.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  outline: none;
+
+  -webkit-transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+}
+.button:hover {
+  color: #fff;
+  outline: none;
+  box-shadow: 0 0 40px 40px var(--secondary-color) inset;
+}
+
+.button-submit {
+  border: 2px solid var(--confirm-color);
+  color: var(--confirm-color);
+}
+
+.button-submit:hover {
+  box-shadow: 0 0 40px 40px var(--confirm-color) inset;
+  color: #fff;
+}
+
+.facebook-button {
+  border: 2px solid var(--facebook-color);
+  color: var(--facebook-color);
+  width: 80%;
+}
+
+.facebook-button:hover {
+  box-shadow: 0 0 40px 40px var(--facebook-color) inset;
+  color: #fff;
+}
+
+.google-button {
+  border: 2px solid var(--google-color);
+  color: var(--google-color);
+  width: 80%;
+}
+
+.google-button:hover {
+  box-shadow: 0 0 40px 40px var(--google-color) inset;
+  color: #fff;
+}
+
+
+/*// NEON //*/
+
+.neon {
+  color: var(--base-font-color);
+  text-shadow:
+    0 0 5px var(--base-font-color),
+    0 0 10px var(--base-font-color),
+    0 0 20px var(--base-font-color);
+    /*0 0 40px var(--primary-color),*/
+    /*0 0 80px var(--primary-color),*/
+    /*0 0 90px var(--primary-color),*/
+    /*0 0 100px var(--primary-color),*/
+    /*0 0 150px var(--primary-color);*/
+}
+
+
+.info-card {
+  min-width: 150px;
+  max-width: 300px;
+  min-height: 200px;
+  max-height: 300px;
+  border: thin solid var(--secondary-color);
+  background-color: var(--primary-color-faded);
+  color: var(--base-hint-color);
+  font-weight: bolder;
+  text-align: justify;
+  padding: .8rem;
+  border-radius: .8em;
+  word-wrap: break-word;
+  overflow: auto;
+}

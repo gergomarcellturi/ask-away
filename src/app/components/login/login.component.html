@@ -1,0 +1,87 @@
+<div class="login-panel-container">
+  <div>
+    <h1 class="login-title neon">AskAway</h1>
+  </div>
+
+  <div class="login-container">
+    <ngx-flip [flip]="flipped">
+      <div front class="login-panel">
+        <h1 class="login-header">Login to your account</h1>
+
+        <form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
+          <div class="login-input-fields">
+            <input [formControlName]="'email'" class="login-input" placeholder="Email">
+            <input [formControlName]="'password'" class="login-input" placeholder="Password">
+            <div class="login-button-cotnainer">
+              <button class="button" type="button" (click)="flip()">Registration</button>
+              <button class="button button-submit" type="submit">Login</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="social-login-container">
+          <button (click)="auth.googleSignIn()" class="button google-button">Sign in with Google</button>
+          <button (click)="auth.facebookSignIn()" class="button facebook-button">Sign in with Facebook</button>
+        </div>
+      </div>
+
+      <div back class="login-panel">
+        <form [formGroup]="registrationForm" (ngSubmit)="register()" autocomplete="off">
+          <h1 class="login-header">Register an account</h1>
+          <div class="login-input-fields">
+            <input [formControlName]="'email'" class="login-input" placeholder="Email">
+            <input [formControlName]="'password'" type="password" class="login-input" placeholder="Password">
+            <input [formControlName]="'passwordRe'" type="password" class="login-input" placeholder="Repeat password">
+            <div class="login-button-cotnainer">
+              <button class="button" type="button" (click)="flip()">Back</button>
+              <button class="button button-submit" type="submit">Registration</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ngx-flip>
+    <div class="login-card-container">
+      <div class="info-card warning" *ngIf="flipped ? registrationForm.errors : loginForm.errors">
+        <div *ngIf="!flipped; else notFlipped">
+          <div *ngIf="loginForm.get('email').errors?.required">
+            Email is missing
+            <br/>
+          </div>
+          <div *ngIf="loginForm.get('email').errors?.invalidEmailFormat">
+            Email format is incorrect
+          </div>
+          <div *ngIf="loginForm.get('password').errors?.required">
+            Password is missing
+            <br/>
+          </div>
+        </div>
+
+        <ng-template #notFlipped>
+          <div *ngIf="registrationForm.get('email').errors?.required">
+            Email is missing
+            <br/>
+          </div>
+          <div *ngIf="registrationForm.get('email').errors?.invalidEmailFormat">
+            Email format is incorrect
+          </div>
+          <div *ngIf="registrationForm.get('password').errors?.required">
+            Password is missing
+            <br/>
+          </div>
+          <div *ngIf="registrationForm.get('passwordRe').errors?.required">
+            PasswordRe is missing
+            <br/>
+          </div>
+          <div *ngIf="registrationForm.errors?.passwordMismatch">
+            Password mismatch
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+

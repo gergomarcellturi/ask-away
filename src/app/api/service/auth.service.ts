@@ -39,22 +39,34 @@ export class AuthService {
     return this.signIn(provider);
   }
 
+  public emailSignIn = async (email: string, password: string): Promise<void> => {
+    this.fireAuth.signInWithEmailAndPassword(email, password).then(credentials => {
+      return this.updateUserData(credentials.user);
+    })
+  }
+
+  public emailSignUp = async (email: string, password: string): Promise<void> => {
+    return this.fireAuth.createUserWithEmailAndPassword(email, password).then(credentials => {
+      return this.updateUserData(credentials.user).then(() => this.router.navigate(['home'])).then();
+    })
+  }
+
   private signIn = async (provider: auth.AuthProvider): Promise<void> => {
     const credentials = await this.fireAuth.signInWithPopup(provider);
-    return this.updateUserData(credentials.user);
+    return this.updateUserData(credentials.user).then(() => this.router.navigate(['home'])).then();
   }
 
   public signOut = async (): Promise<boolean> => {
     await this.fireAuth.signOut();
-    return this.router.navigate(['/']);
+    return this.router.navigate(['login']);
   }
 
-  private updateUserData(user: User) {
+  private updateUserData(user: User, displayName?: string) {
     const userRef: AngularFirestoreDocument<User> = this.fireStore.doc(`users/${user.uid}`);
     const userData = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
+      displayName: displayName || user.displayName,
       photoURL: user.photoURL,
     };
     return userRef.set(userData, {merge: true});
