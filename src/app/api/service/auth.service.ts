@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from "rxjs";
 import {User} from "../model/user.model";
-import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/firestore";
+import {AngularFirestore, AngularFirestoreDocument, DocumentReference} from "@angular/fire/firestore";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {Router} from "@angular/router";
 import {switchMap} from "rxjs/operators";
@@ -15,6 +15,8 @@ import {CommonService} from "./common.service";
 export class AuthService {
 
   public user$: Observable<User>;
+  public user: User;
+  public userRef: DocumentReference<User>;
 
   constructor(
     private fireStore: AngularFirestore,
@@ -24,8 +26,9 @@ export class AuthService {
   ) {
     this.user$ = fireAuth.authState.pipe(
       switchMap(user => {
-        console.log(user);
         if (user) {
+          this.user = user;
+          this.userRef = this.fireStore.doc<User>(`users/${user.uid}`).ref;
           this.router.navigate(['home']).then();
           return this.fireStore.doc<User>(`users/${user.uid}`).valueChanges();
         }
@@ -42,9 +45,7 @@ export class AuthService {
   }
 
   public facebookSignIn = async (): Promise<void> => {
-    console.log('face')
     const provider = new auth.FacebookAuthProvider();
-    console.log('book')
     return this.signIn(provider);
   }
 
