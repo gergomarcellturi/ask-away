@@ -95,3 +95,7 @@ h3, p {
   50%  { opacity: 1;  }
   100% { transform:translate(0,20px); opacity: 0; }
 }
+
+.detail-textarea {
+
+}
