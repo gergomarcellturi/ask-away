@@ -25,6 +25,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "firebase": "^7.0 || ^8.0",
+    "ngx-chips": "^2.2.2",
     "ngx-flip": "^9.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",

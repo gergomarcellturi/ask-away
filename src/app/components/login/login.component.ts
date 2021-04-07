@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../api/service/auth.service";
 import {Router} from "@angular/router";
-import {cardFlip} from "../../api/animations/cardflip";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {emailFormatValidator, passwordMatchingValidation} from "../../api/validators/validators";
 import {CommonService} from "../../api/service/common.service";
@@ -10,7 +9,6 @@ import {CommonService} from "../../api/service/common.service";
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  animations: [cardFlip]
 })
 export class LoginComponent implements OnInit {
 

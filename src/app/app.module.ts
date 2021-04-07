@@ -13,6 +13,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { HeaderComponent } from './components/header/header.component';
 import { QuestionComponent } from './components/question/question.component';
+import {TagInputModule} from "ngx-chips";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { QuestionComponent } from './components/question/question.component';
     BrowserAnimationsModule,
     FormsModule,
     MatSnackBarModule,
+    TagInputModule,
     ReactiveFormsModule,
     FlipModule,
   ],

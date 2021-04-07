@@ -1,12 +1,13 @@
 header {
   text-align: center;
   width: 100%;
-  height: 40vh;
+  height: auto;
   background-size: cover;
   background-attachment: fixed;
   position: relative;
   overflow: hidden;
   border-radius: 0 0 85% 85% / 30%;
+  transition: 1s;
 }
 
 header .overlay{
@@ -16,7 +17,12 @@ header .overlay{
   color: #FFF;
   text-shadow: 1px 1px 1px #333;
   background-image: linear-gradient( 135deg, var(--primary-color) 10%, var(--dark-background) 100%);
+  transition: 1s;
+}
 
+.hidden-detail-container {
+  /*height: 0;*/
+  overflow: hidden;
 }
 
 h1 {
@@ -40,7 +46,8 @@ h3, p {
 .arrow-container {
   width: 50px;
   height: 50px;
-  margin-left: auto;
+  margin: 2rem auto 1rem auto;
+  /*transition: .4s;*/
 }
 
 
@@ -96,6 +103,62 @@ h3, p {
   100% { transform:translate(0,20px); opacity: 0; }
 }
 
-.detail-textarea {
-
+.detail-title {
+  width: 30%;
+  margin: 1rem auto .5rem auto;
+  text-align: left;
 }
+
+.detail-textarea {
+  outline: none;
+  box-sizing: border-box;
+  width: 30%;
+  height: 160px;
+  border-radius: 6px;
+
+  font-weight: bolder;
+  font-size: larger;
+  color: var(--secondary-color);
+  background-color: rgba(255, 255, 255, .41);
+  transition: .4s;
+}
+
+.detail-textarea:focus {
+  background-color: white;
+  transition: .4s;
+}
+
+.detail-textarea:valid {
+  background-color: white;
+  transition: .4s;
+}
+
+.detail-textarea::-webkit-scrollbar {
+  width: 4px;
+}
+
+.detail-textarea::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px var(--secondary-color-faded);
+  border-radius: 0 6px 6px 0;
+}
+
+.detail-textarea::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color);
+  border-radius: 0 6px 0 0;
+  outline: none;
+}
+
+.tag-container {
+  width: 30%;
+  margin: 2rem auto 1rem auto;
+}
+
+/deep/ input.ng2-tag-input__text-input {
+  background-color: transparent;
+  color: var(--secondary-color)
+}
+
+/deep/ input.ng2-tag-input__text-input::placeholder {
+  color: var(--secondary-color-faded)
+}
+

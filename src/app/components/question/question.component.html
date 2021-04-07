@@ -6,11 +6,11 @@
 
     <div class="question-input-container">
 
-
-      <input class="c-checkbox" type="checkbox" id="checkbox">
+      <input [(ngModel)]="questionCheckbox" class="c-checkbox" type="checkbox" id="checkbox">
       <div class="c-formContainer">
         <form class="c-form">
-          <input class="c-form__input" placeholder="lol" type="text" [(ngModel)]="question.question" name="question" required>
+          <input @valueChanged class="c-form__input" placeholder="lol" type="text" [(ngModel)]="question.question" name="question"
+                 required>
           <label class="c-form__buttonLabel" for="checkbox" (click)="send()">
             <button class="c-form__button" type="button">Send</button>
           </label>
@@ -20,12 +20,32 @@
     </div>
     <br>
 
-    <div class="detail-container">
-      <textarea class="detail-textarea"></textarea>
+    <div class="hidden-detail-container" [@detailExpand]="expanded ? 'expanded' : 'collapsed'">
+
+      <div class="tag-container">
+        <div>
+          <tag-input
+            [placeholder]="'Tags'"
+            [secondaryPlaceholder]="'+ Add tags'"
+            [theme]="'foundation-theme'"
+            [(ngModel)]="items"
+            (onSelect)="onSelect($event)"
+            (onAdd)="onSelect($event)"
+            [modelAsStrings]="true">
+          </tag-input>
+        </div>
+      </div>
+
+      <div class="detail-container">
+        <h4 class="detail-title">Tell us more about your question</h4>
+        <textarea class="detail-textarea" [(ngModel)]="question.detail" required></textarea>
+      </div>
+
     </div>
 
-    <div class="arrow-container">
-      <a class="ca3-scroll-down-link ca3-scroll-down-arrow" data-ca3_iconfont="ETmodules" data-ca3_icon=""></a>
+
+    <div class="arrow-container" *ngIf="questionCheckbox" [ngStyle]="expanded && {transform: 'rotate(180deg)'}">
+      <a (click)="expand()" class="ca3-scroll-down-link ca3-scroll-down-arrow" data-ca3_iconfont="ETmodules" data-ca3_icon=""></a>
     </div>
 
   </div>
