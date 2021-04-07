@@ -11,12 +11,14 @@ import { HomeComponent } from './components/home/home.component';
 import {FlipModule} from "ngx-flip";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.fireBaseConfig),

@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {switchMap} from "rxjs/operators";
 import firebase from "firebase";
 import auth = firebase.auth;
+import {CommonService} from "./common.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +20,19 @@ export class AuthService {
     private fireStore: AngularFirestore,
     private fireAuth: AngularFireAuth,
     private router: Router,
+    private common: CommonService,
   ) {
     this.user$ = fireAuth.authState.pipe(
       switchMap(user => {
-        if (user) return this.fireStore.doc<User>(`users/${user.uid}`).valueChanges();
+        console.log(user);
+        if (user) {
+          this.router.navigate(['home']).then();
+          return this.fireStore.doc<User>(`users/${user.uid}`).valueChanges();
+        }
         else return of(null);
       })
     )
+    this.user$.subscribe();
   }
 
 
@@ -35,7 +42,9 @@ export class AuthService {
   }
 
   public facebookSignIn = async (): Promise<void> => {
+    console.log('face')
     const provider = new auth.FacebookAuthProvider();
+    console.log('book')
     return this.signIn(provider);
   }
 
@@ -52,8 +61,15 @@ export class AuthService {
   }
 
   private signIn = async (provider: auth.AuthProvider): Promise<void> => {
-    const credentials = await this.fireAuth.signInWithPopup(provider);
-    return this.updateUserData(credentials.user).then(() => this.router.navigate(['home'])).then();
+    console.log('signin')
+    return this.fireAuth.signInWithPopup(provider).then(credentials => {
+      return this.updateUserData(credentials.user).then(() => this.router.navigate(['home']))
+        .catch(err => {
+          console.log(err);
+          this.common.openSnackbar(err.message)
+          return err;
+        });
+    }).catch(error => this.common.openSnackbar(error.message))
   }
 
   public signOut = async (): Promise<boolean> => {

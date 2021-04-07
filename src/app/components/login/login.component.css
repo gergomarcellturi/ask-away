@@ -12,6 +12,7 @@
   border: solid thin var(--secondary-color);
   width: var(--login-panel-width);
   height: var(--login-panel-heigth);
+  border-radius: .2rem;
 }
 
 .login-header {

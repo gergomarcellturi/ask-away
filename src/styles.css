@@ -5,8 +5,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 :root {
   --dark-background: rgb(0,0,45);
-  --primary-color: #301357;
-  --primary-color-faded: #301357AA;
+  --primary-color: #a60cf2;
+  --primary-color-faded: #a60cf2AA;
   --secondary-color: #eb960e;
   --secondary-color-faded: #eb960e3D;
   --warning-color: #d60027;
@@ -77,6 +77,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .button-submit:hover {
   box-shadow: 0 0 40px 40px var(--confirm-color) inset;
+  color: #fff;
+}
+
+.button-primary {
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.button-primary:hover {
+  box-shadow: 0 0 40px 40px var(--primary-color) inset;
   color: #fff;
 }
 

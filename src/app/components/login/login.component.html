@@ -6,15 +6,15 @@
   <div class="login-container">
     <ngx-flip [flip]="flipped">
       <div front class="login-panel">
-        <h1 class="login-header">Login to your account</h1>
+        <h1 class="login-header">Log in to your account</h1>
 
         <form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
           <div class="login-input-fields">
             <input [formControlName]="'email'" class="login-input" placeholder="Email">
-            <input [formControlName]="'password'" class="login-input" placeholder="Password">
+            <input [formControlName]="'password'" class="login-input" type="password" placeholder="Password">
             <div class="login-button-cotnainer">
               <button class="button" type="button" (click)="flip()">Registration</button>
-              <button class="button button-submit" type="submit">Login</button>
+              <button class="button button-primary" type="submit">Login</button>
             </div>
           </div>
         </form>
