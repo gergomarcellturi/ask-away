@@ -1,0 +1,32 @@
+<div class="explore-container">
+  <h1 class="explore-header">Explore</h1>
+  <div class="divider"></div>
+
+
+  <div class="explore-questions-container" @questionCardAnimation *ngIf="questions$ | async as questions">
+
+    <ng-container *ngFor="let question of questions">
+      <div class="explore-question"
+           [style.background-color]="questionCardThemes[question.uid] && questionCardThemes[question.uid].transColor"
+           [style.border-color]="questionCardThemes[question.uid] && questionCardThemes[question.uid].color">
+        <h2 class="explore-question-header" [style.background-color]="questionCardThemes[question.uid] && questionCardThemes[question.uid].color">{{question.question}}</h2>
+        <div class="question-body">
+          <div class="explore-tags">
+            <span class="explore-tag-element">Cooking</span>
+            <span class="explore-tag-element">General</span>
+            <span class="explore-tag-element">Life</span>
+          </div>
+          <div class="explore-question-detail">
+            {{question.detail || ''}}
+            <div class="explore-question-button-container">
+              <button class="explore-question-button button">Answer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+
+
+</div>

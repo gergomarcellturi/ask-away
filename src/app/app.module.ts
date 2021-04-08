@@ -14,6 +14,9 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { HeaderComponent } from './components/header/header.component';
 import { QuestionComponent } from './components/question/question.component';
 import {TagInputModule} from "ngx-chips";
+import {MatRippleModule} from "@angular/material/core";
+import { ExploreComponent } from './components/explore/explore.component';
+import { VarDirective } from './api/directive/var.directive';
 
 @NgModule({
   declarations: [
@@ -21,19 +24,22 @@ import {TagInputModule} from "ngx-chips";
     LoginComponent,
     HomeComponent,
     HeaderComponent,
-    QuestionComponent
+    QuestionComponent,
+    ExploreComponent,
+    VarDirective
   ],
-  imports: [
-    AngularFireModule.initializeApp(environment.fireBaseConfig),
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    MatSnackBarModule,
-    TagInputModule,
-    ReactiveFormsModule,
-    FlipModule,
-  ],
+    imports: [
+        AngularFireModule.initializeApp(environment.fireBaseConfig),
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        MatSnackBarModule,
+        TagInputModule,
+        ReactiveFormsModule,
+        FlipModule,
+        MatRippleModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

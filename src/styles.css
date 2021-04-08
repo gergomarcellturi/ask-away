@@ -121,11 +121,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     0 0 5px var(--base-font-color),
     0 0 10px var(--base-font-color),
     0 0 20px var(--base-font-color);
-    /*0 0 40px var(--primary-color),*/
-    /*0 0 80px var(--primary-color),*/
-    /*0 0 90px var(--primary-color),*/
-    /*0 0 100px var(--primary-color),*/
-    /*0 0 150px var(--primary-color);*/
 }
 
 
@@ -143,4 +138,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-radius: .8em;
   word-wrap: break-word;
   overflow: auto;
+}
+
+.divider {
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 4px;
+  border-top: 3px solid var(--secondary-color-faded);
 }

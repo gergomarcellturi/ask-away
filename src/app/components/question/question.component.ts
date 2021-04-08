@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Question} from "../../api/model/Question";
 import {AuthService} from "../../api/service/auth.service";
 import {FormBuilder} from "@angular/forms";
@@ -31,6 +31,14 @@ export class QuestionComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if(event.key == 'Escape'){
+      // Your row selection code
+      this.resetQuestion();
+    }
+  }
+
   public onSelect(item) {
     console.log(item);
   }
@@ -44,11 +52,18 @@ export class QuestionComponent implements OnInit {
     if (!this.question.question) return;
     this.questionService.sendQuestion(this.question);
     this.expanded = false;
-    timer(1500).subscribe(() => this.question = {detail: null} as Question);
+    timer(1500).subscribe(() => this.resetQuestion());
   }
 
   public log(data:any) {
     console.log(data);
+  }
+
+  private resetQuestion = (): void => {
+    this.expanded = false;
+    this.question = {detail: null} as Question;
+    this.questionCheckbox = false;
+
   }
 
 }
