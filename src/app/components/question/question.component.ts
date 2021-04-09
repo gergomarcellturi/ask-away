@@ -2,10 +2,11 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {Question} from "../../api/model/Question";
 import {AuthService} from "../../api/service/auth.service";
 import {FormBuilder} from "@angular/forms";
-import {AngularFirestore} from "@angular/fire/firestore";
+import {AngularFirestore, DocumentReference} from "@angular/fire/firestore";
 import {QuestionService} from "../../api/service/question.service";
 import {detailExpand, fade, valueChanged} from "../../api/animations/animations";
 import {timer} from "rxjs";
+import {Tag} from "../../api/model/Tag";
 
 @Component({
   selector: 'app-question',
@@ -17,7 +18,7 @@ export class QuestionComponent implements OnInit {
 
   public question: Question = {detail: null} as Question;
   public questionCheckbox = false;
-  public items: string[];
+  public tags: string[];
   public expanded = false;
 
   constructor(
@@ -39,20 +40,26 @@ export class QuestionComponent implements OnInit {
     }
   }
 
-  public onSelect(item) {
-    console.log(item);
-  }
-
   public expand = (): void => {
     this.expanded = !this.expanded;
-    console.log(this.expanded);
   }
 
-  public send = (): void => {
+  public send = async (): Promise<void> => {
     if (!this.question.question) return;
+    this.question.tags = await this.createTags();
+    console.log(this.question.tags);
     this.questionService.sendQuestion(this.question);
     this.expanded = false;
     timer(1500).subscribe(() => this.resetQuestion());
+  }
+
+  public createTags = async (): Promise<DocumentReference<Tag>[]> => {
+    let tagList: DocumentReference<Tag>[] = [];
+    for (let tag of this.tags) {
+      let databaseTag = await this.questionService.getTagByName(tag)
+      tagList = [...tagList, databaseTag.uid ? databaseTag.ref : await this.questionService.saveTag(tag)]
+    }
+    return tagList;
   }
 
   public log(data:any) {
@@ -61,6 +68,7 @@ export class QuestionComponent implements OnInit {
 
   private resetQuestion = (): void => {
     this.expanded = false;
+    this.tags = [];
     this.question = {detail: null} as Question;
     this.questionCheckbox = false;
 

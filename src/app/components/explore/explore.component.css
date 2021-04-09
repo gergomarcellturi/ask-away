@@ -1,7 +1,7 @@
 .explore-container {
   width: 100%;
   margin-top: 5rem;
-  height: 100vh;
+  height: 120vh;
 }
 
 .explore-header {
@@ -84,10 +84,48 @@
 }
 
 .explore-question-detail {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
   text-align: justify;
+  font-weight: bolder;
 }
 
 .explore-question-button-container {
   display: flex;
   justify-content: flex-end;
+}
+
+.answer-section-container {
+  display: flex;
+  overflow: hidden;
+  flex-direction: row;
+}
+
+.explore-question-button {
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-left: auto;
+}
+
+.answer-section {
+  flex: 2;
+  outline: none;
+  box-sizing: border-box;
+  margin: 1rem auto;
+  width: 80%;
+  height: 80px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: none;
+  font-weight: bolder;
+  font-size: larger;
+  color: var(--secondary-color);
+  /*background-color: var(--secondary-color-faded-dark);*/
+  background-color: rgba(255, 255, 255, .80);
+  transition: .4s;
+}
+
+.invisible {
+  background-color: transparent;
+  transition: .4s;
 }

@@ -42,7 +42,7 @@ export const fadeIn = trigger('fadeIn', [
     state('void', style({opacity: 0, transform: 'scale(.5)'})),
   transition('void <=> *', [
     animate('{{time}}ms')
-  ], {params: { time: 500}})
+  ], {params: { time: 100}})
   ]);
 
 export const questionCardAnimation = trigger('questionCardAnimation', [

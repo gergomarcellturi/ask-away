@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +16,14 @@ export class CommonService {
   }
 
   public generateRandomColor = (): string => {
-    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    return `#${Math.floor(Math.random() * (16777215)).toString(16)}`;
+  }
+
+  public getDarkColor = (): string => {
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += Math.floor(Math.random() * 10);
+    }
+    return color;
   }
 }

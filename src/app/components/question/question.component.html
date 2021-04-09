@@ -28,9 +28,7 @@
             [placeholder]="'Tags'"
             [secondaryPlaceholder]="'+ Add tags'"
             [theme]="'foundation-theme'"
-            [(ngModel)]="items"
-            (onSelect)="onSelect($event)"
-            (onAdd)="onSelect($event)"
+            [(ngModel)]="tags"
             [modelAsStrings]="true">
           </tag-input>
         </div>

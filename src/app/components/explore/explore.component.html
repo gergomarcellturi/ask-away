@@ -12,14 +12,25 @@
         <h2 class="explore-question-header" [style.background-color]="questionCardThemes[question.uid] && questionCardThemes[question.uid].color">{{question.question}}</h2>
         <div class="question-body">
           <div class="explore-tags">
+            <span class="explore-tag-element" *ngFor="let tag of question.tags">
+<!--              <ng-container>{{tag.get()}}</ng-container>-->
+<!--              <ng-container *ngVar="tag.get() | async as tagName">{{tagName.data().tag}}</ng-container>-->
+            </span>
             <span class="explore-tag-element">Cooking</span>
-            <span class="explore-tag-element">General</span>
-            <span class="explore-tag-element">Life</span>
           </div>
-          <div class="explore-question-detail">
+          <div class="explore-question-detail" [style.color]="questionCardThemes[question.uid] && questionCardThemes[question.uid].color">
             {{question.detail || ''}}
-            <div class="explore-question-button-container">
-              <button class="explore-question-button button">Answer</button>
+            <div class="answer-section-container">
+              <textarea class="answer-section"
+                        [(ngModel)]="question.answer"
+                        [style.opacity]="selectedQuestion !== question ? 0 : 1"
+                        [style.cursor]="selectedQuestion !== question ? 'default' : 'initial'"
+                        [style.color]="questionCardThemes[question.uid] && questionCardThemes[question.uid].color"
+                        [readOnly]="selectedQuestion !== question"></textarea>
+              <button class="button explore-question-button" *ngIf="selectedQuestion !== question; else answerButton" (click)="selectQuestion(question)">Answer</button>
+              <ng-template #answerButton>
+                <button class="button button-submit" (click)="send(question)" [disabled]="!question.answer">Send</button>
+              </ng-template>
             </div>
           </div>
         </div>

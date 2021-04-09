@@ -8,10 +8,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --primary-color: #a60cf2;
   --primary-color-faded: #a60cf2AA;
   --secondary-color: #eb960e;
+  --secondary-color-faded-dark: #eb960eAA;
   --secondary-color-faded: #eb960e3D;
   --warning-color: #d60027;
   --confirm-color: #1e873a;
   --base-font-color: #ffecd9;
+  --dark-font-color: #3b2b00;
   --base-hint-color: rgba(255, 236, 217, .41);
 
   --facebook-color: #4267B2;
