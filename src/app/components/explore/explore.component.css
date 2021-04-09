@@ -91,6 +91,7 @@
   cursor: pointer;
   padding: 6px;
   margin: 0 .4rem 0 0;
+  box-shadow: 3px 3px 4px rgba(0,0,0,.41);
 }
 
 .explore-question-detail {

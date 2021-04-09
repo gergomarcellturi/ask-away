@@ -1,4 +1,37 @@
 .my-questions-container {
   width: 80%;
   margin: 1rem auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.my-question-card-inner-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.my-question-card-basic {
+  flex: 2;
+}
+
+.vote-container {
+  width: 100px;
+}
+
+.answer-count-container {
+  width: 100px;
+}
+
+.my-question-card {
+  flex: 1;
+  border: thin solid var(--secondary-color);
+  border-radius: 1em;
+  background-color: var(--secondary-color-faded);
+  padding: .6em;
+  margin-top: 1em;
+}
+
+.my-question-card h1 {
+  margin: 0;
 }

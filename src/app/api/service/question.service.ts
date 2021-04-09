@@ -25,9 +25,27 @@ export class QuestionService {
     this.tagRef = firestore.collection<Tag>('tags');
   }
 
+  public getQuestionsForLoggedInUser = async (): Promise<Question[]> => {
+    return await this.questionRef.ref.where('submitter', '==', this.auth.userRef).get().then(snapshot => {
+      let questionArray = [];
+      snapshot.docs.forEach(doc => {
+        questionArray = [...questionArray, {uid: doc.id, ...doc.data()}];
+      })
+      return questionArray;
+    })
+  }
+
+  public getAnswersForQuestionUid = (uid: string): Promise<Answer[]> => {
+    return this.firestore.collection<Answer>(`questions/${uid}/answers`).get().toPromise().then(snap => {
+      let answerArray = [];
+      snap.docs.forEach(doc => {
+        answerArray = [...answerArray, {uid: doc.id, ...doc.data()}];
+      })
+      return answerArray;
+    })
+  }
 
   public sendQuestion = ({question, detail, tags}): void => {
-    console.log(tags);
     const data = {
       question, detail, tags,
       submitter: this.auth.userRef,

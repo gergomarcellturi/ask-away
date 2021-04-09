@@ -1,3 +1,30 @@
-<div class="my-questions-container">
+<div class="my-questions-container" *ngIf="questions | async as questions">
+
+  <div class="my-question-card" *ngFor="let question of questions" (click)="showAnswers(question)">
+    <div class="my-question-card-inner-container">
+      <div class="my-question-card-basic">
+        <h1>{{question.question}}</h1>
+        <div class="detail-container">
+          {{question.detail}}
+        </div>
+      </div>
+
+      <div class="vote-container">
+        Votes
+      </div>
+
+      <div class="answer-count-container">
+        2
+      </div>
+
+    </div>
+
+
+    <div class="answer-container" *ngIf="answerMap[question.uid] | async as answers">
+      <div class="answer" *ngFor="let answer of answers">
+        {{answer.answer}}
+      </div>
+    </div>
+  </div>
 
 </div>

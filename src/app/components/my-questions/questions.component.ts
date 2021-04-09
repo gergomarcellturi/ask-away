@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {QuestionService} from "../../api/service/question.service";
+import {Question} from "../../api/model/Question";
+import {Answer} from "../../api/model/Answer";
 
 @Component({
   selector: 'app-questions',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionsComponent implements OnInit {
 
-  constructor() { }
+  public questions: Promise<Question[]>
+  public answerMap: {[key: string]: Promise<Answer[]>} = {};
 
-  ngOnInit(): void {
+  constructor(
+    public questionService: QuestionService
+  ) {
+    this.questions = questionService.getQuestionsForLoggedInUser();
   }
 
+  async ngOnInit(): Promise<void> {
+  }
+
+  public showAnswers = (question: Question): void => {
+    this.answerMap[question.uid] = this.questionService.getAnswersForQuestionUid(question.uid);
+  }
 }

@@ -1,7 +1,10 @@
 .profile-container {
   width: 90%;
   margin: 1rem auto;
-  border: solid thin red;
+  border: solid thin rgba(0,0,0,.61);
+  border-radius: 8px;
+  background-color: rgba(0,0,0,.03);
+  box-shadow: 4px 4px 12px rgba(0,0,0,.41);
 }
 
 .profile-editor-container {
