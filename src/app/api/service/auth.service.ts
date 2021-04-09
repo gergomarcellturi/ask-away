@@ -78,7 +78,7 @@ export class AuthService {
     return this.router.navigate(['login']);
   }
 
-  private updateUserData(user: User, displayName?: string) {
+  public updateUserData(user: User, displayName?: string) {
     const userRef: AngularFirestoreDocument<User> = this.fireStore.doc(`users/${user.uid}`);
     const userData = {
       uid: user.uid,

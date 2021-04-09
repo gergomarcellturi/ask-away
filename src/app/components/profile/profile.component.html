@@ -1,3 +1,15 @@
-<div class="profile-container">
+<div class="profile-container" *ngIf="auth.user$ | async as user">
+  <div class="profile-editor-container">
+    <div class="profile-picture-container">
+      <img class="profile-picture" src="{{user.photoURL || 'https://lh3.googleusercontent.com/proxy/C7zhQxIRlByFnRK4LZiPhsEy9qDW8Q9a1kd2QdwCxDfie5rHPXYa8OZbXL0DIl2qDN8cz2dCF6FO16WDb1XOtLcTvYZ9-sVAfSJ7SHwoLILyIigUr1yg2qRQ2HprSQ'}}">
+    </div>
 
+    <div class="profile-data-container">
+      <input placeholder="Email" [disabled]="true" [(ngModel)]="user.email">
+      <input placeholder="DisplayedName" [(ngModel)]="user.displayName">
+    </div>
+  </div>
+  <div class="save-button-container">
+    <button matRipple class="button button-submit" (click)="save(user)">Save</button>
+  </div>
 </div>
