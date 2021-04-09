@@ -23,7 +23,6 @@ export class QuestionService {
   ) {
     this.questionRef = firestore.collection<Question>('questions');
     this.tagRef = firestore.collection<Tag>('tags');
-    this.getTags().then();
   }
 
 
@@ -48,14 +47,15 @@ export class QuestionService {
     answerRef.add(data).then();
   }
 
-  public getTags = async (): Promise<void> => {
-    let tagsArray = [];
-    this.tagRef.get().subscribe(snapshot => {
-      snapshot.docs.forEach(doc => {
-        doc.data()
-        tagsArray = [...tagsArray, {id: doc.id, ...doc.data()}]
-      })
-    })
+  public getTags = (): Observable<Tag[]> => {
+    return this.tagRef.get().pipe(map(snapshot => {
+      return snapshot.docs.map(doc => {
+        return {
+          uid: doc.id,
+          ...doc.data(),
+        } as Tag;
+      });
+    }));
   }
 
   public getQuestionByUid = (uid: string): void => {
@@ -66,7 +66,6 @@ export class QuestionService {
     let uidArray = [];
     return this.questionRef.get().pipe(map(snapshot => {
       uidArray = snapshot.docs.map(doc => doc.id);
-      snapshot.docs.forEach(doc => console.log(doc.data()))
       if (uidArray.length < limit) return this.getRandomQuestionsByUidsAndSnapshot(uidArray, snapshot);
       else {
         const randomUidArray = this.getRandomUids(limit, uidArray);

@@ -1,43 +1,74 @@
 <div class="explore-container">
-  <h1 class="explore-header">Explore</h1>
+  <h1 class="explore-header" matRipple (click)="exploreExpanded = !exploreExpanded">Explore</h1>
+
+
+  <div class="search-container" [@detailExpand]="exploreExpanded ? 'expanded' : 'collapsed'">
+    <div class="search-input-container">
+      <input class="search-input" placeholder="Search">
+    </div>
+    <div class="search-tag-container">
+        <tag-input class="search-tag-input" #tagInputElement
+          [placeholder]="'Tags'"
+          [secondaryPlaceholder]="'+ Add tags'"
+          [theme]="'search-tag-input-theme'"
+          [(ngModel)]="searchTags"
+          [modelAsStrings]="true">
+        </tag-input>
+    </div>
+    <div class="search-button-container">
+      <button class="button search-button">Search</button>
+    </div>
+  </div>
+
+
   <div class="divider"></div>
 
 
-  <div class="explore-questions-container" @questionCardAnimation *ngIf="questions$ | async as questions">
+  <div *ngIf="tags$ | async as tags">
+    <div class="explore-questions-container" @questionCardAnimation *ngIf="questions$ | async as questions">
+      <ng-container *ngFor="let question of questions">
+        <div class="explore-question"
+             [style.background-color]="questionCardThemes[question.uid]?.transColor"
+             [style.border-color]="questionCardThemes[question.uid]?.color">
+          <h2 class="explore-question-header"
+              [style.background-color]="questionCardThemes[question.uid]?.color">{{question.question}}</h2>
+          <div class="question-body">
+            <div class="explore-tags">
 
-    <ng-container *ngFor="let question of questions">
-      <div class="explore-question"
-           [style.background-color]="questionCardThemes[question.uid] && questionCardThemes[question.uid].transColor"
-           [style.border-color]="questionCardThemes[question.uid] && questionCardThemes[question.uid].color">
-        <h2 class="explore-question-header" [style.background-color]="questionCardThemes[question.uid] && questionCardThemes[question.uid].color">{{question.question}}</h2>
-        <div class="question-body">
-          <div class="explore-tags">
-            <span class="explore-tag-element" *ngFor="let tag of question.tags">
-<!--              <ng-container>{{tag.get()}}</ng-container>-->
-<!--              <ng-container *ngVar="tag.get() | async as tagName">{{tagName.data().tag}}</ng-container>-->
-            </span>
-            <span class="explore-tag-element">Cooking</span>
-          </div>
-          <div class="explore-question-detail" [style.color]="questionCardThemes[question.uid] && questionCardThemes[question.uid].color">
-            {{question.detail || ''}}
-            <div class="answer-section-container">
+              <ng-container *ngFor="let tag of question.tags">
+                <ng-container *ngVar="getTagDataByUidAndTagArray(tag.id, tags) as tagData">
+                <span class="explore-tag-element" [style.background-color]="tagData?.color" (click)="addTagToSearch(tagData)">
+                  {{tagData?.tag}}
+                </span>
+                </ng-container>
+              </ng-container>
+            </div>
+            <div class="explore-question-detail"
+                 [style.color]="questionCardThemes[question.uid] && questionCardThemes[question.uid].color">
+              {{question.detail || ''}}
+              <div class="answer-section-container">
               <textarea class="answer-section"
                         [(ngModel)]="question.answer"
                         [style.opacity]="selectedQuestion !== question ? 0 : 1"
                         [style.cursor]="selectedQuestion !== question ? 'default' : 'initial'"
                         [style.color]="questionCardThemes[question.uid] && questionCardThemes[question.uid].color"
                         [readOnly]="selectedQuestion !== question"></textarea>
-              <button class="button explore-question-button" *ngIf="selectedQuestion !== question; else answerButton" (click)="selectQuestion(question)">Answer</button>
-              <ng-template #answerButton>
-                <button class="button button-submit" (click)="send(question)" [disabled]="!question.answer">Send</button>
-              </ng-template>
+                <button class="button explore-question-button" *ngIf="selectedQuestion !== question; else answerButton"
+                        (click)="selectQuestion(question)">Answer
+                </button>
+                <ng-template #answerButton>
+                  <button class="button button-submit" (click)="send(question)" [disabled]="!question.answer">Send
+                  </button>
+                </ng-template>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </ng-container>
+      </ng-container>
 
+    </div>
   </div>
+
 
 
 </div>

@@ -1,0 +1,42 @@
+@import "~node_modules/ngx-chips/core/styles/core/_core.scss";
+
+$search-tag-input-theme-primary: #eb960e;
+$search--primary-dark: darken($search-tag-input-theme-primary, 10%);
+
+// this is the container's theme
+$search-tag-input-theme: (
+  container-border-bottom: 1px solid $search-tag-input-theme-primary
+);
+
+// this is the tag's theme
+$search-tag-theme: (
+  background: $search-tag-input-theme-primary,
+  background-focused: $search--primary-dark,
+  background-active: $search--primary-dark,
+  background-hover: $search--primary-dark,
+  color: #fff,
+  color-hover: #fff,
+  border-radius: 1em
+);
+
+// this is the delete icon's theme
+$search-icon-theme: (
+  fill: #fff,
+  fill-focus: #eee,
+  transition: all 0.35s
+);
+
+// apply theme to the container
+::ng-deep tag-input .ng2-tag-input.search-tag-input-theme {
+  @include tag-input-theme($search-tag-input-theme);
+}
+
+// apply theme to the tags
+::ng-deep tag-input .ng2-tag-input.search-tag-input-theme tag {
+  @include tag-theme($search-tag-theme);
+}
+
+// apply theme to the delete icon
+::ng-deep tag-input .ng2-tag-input.search-tag-input-theme tag delete-icon {
+  @include icon-theme($search-icon-theme);
+}

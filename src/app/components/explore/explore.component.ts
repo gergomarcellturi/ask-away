@@ -1,21 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {detailExpand, fadeIn, questionCardAnimation} from "../../api/animations/animations";
 import {Question} from "../../api/model/Question";
 import {CommonService} from "../../api/service/common.service";
 import {QuestionService} from "../../api/service/question.service";
 import {Observable} from "rxjs";
+import {Tag} from "../../api/model/Tag";
+import {TagInputForm} from "ngx-chips";
 
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
-  styleUrls: ['./explore.component.css'],
+  styleUrls: ['./explore.component.css', 'search-tag-input-theme.scss'],
   animations: [questionCardAnimation, detailExpand, fadeIn]
 })
 export class ExploreComponent implements OnInit {
 
+  @ViewChild('tagInputElement', {static: false})
+  public tagInputElement: TagInputForm;
+
+  public exploreExpanded = false;
   public questions$: Observable<Question[]>;
+  public tags$: Observable<Tag[]>;
   public questionCardThemes: {[key: string]: {color: string, transColor: string}} = {};
   public selectedQuestion: Question = null;
+  public searchTags: {value: string, display: string}[] = [];
 
   constructor(
     public common: CommonService,
@@ -25,7 +33,14 @@ export class ExploreComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.queryQuestions();
+    this.queryTags();
     this.generateQuestionThemeColors();
+  }
+
+  public addTagToSearch = (tag: Tag): void => {
+    console.log(this.tagInputElement);
+    if (!this.searchTags.some(searchTag => searchTag.value === tag.tag )) return;
+    this.searchTags = [...this.searchTags, {value: tag.tag , display: tag.tag}];
   }
 
   public selectQuestion = (question: Question): void => {
@@ -45,8 +60,16 @@ export class ExploreComponent implements OnInit {
     this.questionService.sendAnswer(question);
   }
 
+  public getTagDataByUidAndTagArray = (uid: string, tagarray: Tag[] ): Tag => {
+    return tagarray?.find(tagElement => tagElement.uid === uid);
+  }
+
   private queryQuestions = (): void => {
     this.questions$ = this.questionService.getRandomQuestions();
+  }
+
+  private queryTags = (): void =>{
+    this.tags$ = this.questionService.getTags();
   }
 
   private generateQuestionThemeColors = (): void => {
