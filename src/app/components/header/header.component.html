@@ -1,7 +1,7 @@
 <nav class="main-header">
-  <a matRipple>Profile</a>
-  <a matRipple>My questions</a>
-  <a matRipple>Explore</a>
-  <a matRipple>About</a>
+  <a matRipple (click)="activateRoute('profile')">Profile</a>
+  <a matRipple (click)="activateRoute('questions')">My questions</a>
+  <a matRipple (click)="activateRoute('explore')">Explore</a>
+  <a matRipple (click)="activateRoute('answers')">My Answers</a>
   <a matRipple (click)="auth.signOut()">Log out</a>
 </nav>

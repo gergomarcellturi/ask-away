@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {detailExpand, fadeIn, questionCardAnimation} from "../../api/animations/animations";
 import {Question} from "../../api/model/Question";
 import {CommonService} from "../../api/service/common.service";
 import {QuestionService} from "../../api/service/question.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {Tag} from "../../api/model/Tag";
 import {TagInputForm} from "ngx-chips";
 
@@ -13,10 +13,13 @@ import {TagInputForm} from "ngx-chips";
   styleUrls: ['./explore.component.css', 'search-tag-input-theme.scss'],
   animations: [questionCardAnimation, detailExpand, fadeIn]
 })
-export class ExploreComponent implements OnInit {
+export class ExploreComponent implements OnInit, OnDestroy {
 
   @ViewChild('tagInputElement', {static: false})
   public tagInputElement: TagInputForm;
+
+  @Input() events: Observable<string>;
+  private eventSub: Subscription;
 
   public exploreExpanded = false;
   public questions$: Observable<Question[]>;
@@ -34,7 +37,16 @@ export class ExploreComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.queryQuestions();
     this.queryTags();
+    this.eventSub = this.events.subscribe(path => this.reSelect(path));
     this.generateQuestionThemeColors();
+  }
+
+  ngOnDestroy() {
+    this.eventSub.unsubscribe();
+  }
+
+  public reSelect = (path: string): void => {
+    if (path === 'explore') this.exploreExpanded = true;
   }
 
   public addTagToSearch = (tag: Tag): void => {

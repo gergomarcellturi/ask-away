@@ -17,6 +17,9 @@ import {TagInputModule} from "ngx-chips";
 import {MatRippleModule} from "@angular/material/core";
 import { ExploreComponent } from './components/explore/explore.component';
 import { VarDirective } from './api/directive/var.directive';
+import { QuestionsComponent } from './components/my-questions/questions.component';
+import { AnswersComponent } from './components/answers/answers.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { VarDirective } from './api/directive/var.directive';
     HeaderComponent,
     QuestionComponent,
     ExploreComponent,
-    VarDirective
+    VarDirective,
+    QuestionsComponent,
+    AnswersComponent,
+    ProfileComponent
   ],
     imports: [
         AngularFireModule.initializeApp(environment.fireBaseConfig),
