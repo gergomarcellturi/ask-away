@@ -1,10 +1,9 @@
 .profile-container {
   width: 90%;
   margin: 1rem auto;
-  border: solid thin rgba(0,0,0,.61);
-  border-radius: 8px;
-  background-color: rgba(0,0,0,.03);
-  box-shadow: 4px 4px 12px rgba(0,0,0,.41);
+  /*border-radius: 8px;*/
+  /*background-color: rgba(0,0,0,.03);*/
+  /*box-shadow: 4px 4px 12px rgba(0,0,0,.41);*/
 }
 
 .profile-editor-container {
@@ -32,6 +31,7 @@
 .profile-data-container {
   display: flex;
   flex: 3;
+  padding: 1rem;
   flex-direction: column;
   justify-content: space-around;
 }
@@ -44,6 +44,17 @@
   padding: .5em;
   width: 100%;
   height: 40px;
+}
+
+.profile-data-container input:disabled {
+  font-style: italic;
+  color: rgba(0,0,0,.41);
+}
+
+.input-label {
+  padding-left: 1rem;
+  margin-bottom: .6em;
+  color: rgba(0,0,0,.41);
 }
 
 .save-button-container {

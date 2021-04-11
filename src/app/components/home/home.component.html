@@ -1,6 +1,6 @@
 <ng-container *ngIf="auth.user$ | async">
   <app-header (activatedRoute)="activatedRoute($event)"></app-header>
-  <app-question></app-question>
+  <app-question class="app-question"></app-question>
   <ng-container [ngSwitch]="activeRoute">
     <app-explore *ngSwitchCase="'explore'" [events]="eventsSubject.asObservable()"></app-explore>
     <app-questions *ngSwitchCase="'questions'"></app-questions>

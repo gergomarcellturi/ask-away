@@ -1,4 +1,6 @@
 <div class="my-questions-container" *ngIf="questionsMap | async as questions">
+  <h1 class="explore-header" matRipple>My Questions</h1>
+  <div class="divider"></div>
 
   <ng-container *ngIf="questions.length === 0">
     <div class="feedback-message">

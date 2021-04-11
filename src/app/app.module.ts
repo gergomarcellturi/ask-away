@@ -21,6 +21,7 @@ import { QuestionsComponent } from './components/my-questions/questions.componen
 import { AnswersComponent } from './components/answers/answers.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {MatIconModule} from "@angular/material/icon";
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {MatIconModule} from "@angular/material/icon";
     VarDirective,
     QuestionsComponent,
     AnswersComponent,
-    ProfileComponent
+    ProfileComponent,
+    FooterComponent
   ],
     imports: [
         AngularFireModule.initializeApp(environment.fireBaseConfig),

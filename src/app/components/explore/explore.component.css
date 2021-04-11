@@ -1,20 +1,7 @@
 .explore-container {
   width: 100%;
-  margin-top: 5rem;
   height: 120vh;
-}
-
-.explore-header {
-  width: 15%;
-  margin: 0 auto;
-  cursor: pointer;
-  font-size: xx-large;
-  text-align: center;
-  letter-spacing: 6px;
-  text-transform: capitalize;
-  border-radius: 6em;
-  color: var(--secondary-color);
-  transition: .4s;
+  margin-top: 1rem;
 }
 
 .explore-header:hover {
@@ -169,7 +156,7 @@
   flex-direction: column;
   width: 60%;
   border-radius: 6em;
-  margin: 1rem auto;
+  margin: 0 auto;
   height: 12rem;
   background-image: linear-gradient(
     135deg
