@@ -47,6 +47,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   transition: .4s;
 }
 
+.hint {
+  color: var(--base-hint-color);
+  transition: .4s;
+}
+
 /* // BUTTON //*/
 
 .button {

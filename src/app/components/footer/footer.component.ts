@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
+  @ViewChild('scrollElement') public scrollElement: ElementRef;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public goTo = (url: string): void => {
+    window.open(url, '_blank');
   }
 
 }

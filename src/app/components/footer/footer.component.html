@@ -1,1 +1,40 @@
-<p>footer works!</p>
+<div class="footer-container" #scrollElement>
+  <div class="menu-container">
+    <div class="menu">
+      <div class="label">About me</div>
+      <div class="spacer"></div>
+      <div class="item" (click)="goTo('https://www.facebook.com/gergomarcellturi/')"><span>Facebook</span></div>
+      <div class="item" (click)="goTo('https://twitter.com/gergo_marcell')"><span>Twitter</span></div>
+      <div class="item"><span (click)="goTo('https://www.youtube.com/watch?v=ETfiUYij5UE')">Fire mixtape</span></div>
+    </div>
+  </div>
+
+<div class="footer-detail-container">
+  <div class="personal-info-container">
+    <span>Turi, Gergő Marcell</span>
+    <span class="hint">DEIK PTI BSc</span>
+    <span class="hint">Neptun: OX3YA0</span>
+    <span class="divider footer-divider"></span>
+    <span><a href="mailto://gergo.marcell.turi@gmail.com" class="hint hint-email">gergo.marcell.turi@gmail.com</a></span>
+  </div>
+
+  <div class="horizontal-divider"></div>
+
+  <div class="footer-detail">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, consectetur consequatur deleniti doloribus eligendi est facilis fuga nam obcaecati odit possimus provident saepe, sed unde ut. Aperiam consectetur necessitatibus veritatis.
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eaque esse excepturi minima minus non ratione repellat sint tempore voluptates. Architecto blanditiis corporis debitis dicta illum iste iusto quisquam unde!
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur cum doloremque eos eveniet fugit itaque labore maxime modi numquam optio perferendis possimus qui, ratione tempora tempore tenetur unde? Libero, voluptatibus.
+    <br/><br/>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aspernatur aut ea enim minima, molestias neque perferendis quaerat repellendus sit, sunt, tempore ullam vero? Consequatur in ipsa numquam quam sapiente!
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab aliquid assumenda aut cum deleniti est eum, explicabo fugiat labore molestias optio, provident quasi ratione rem sapiente similique tempore veritatis!
+  </div>
+
+  <div class="horizontal-divider"></div>
+
+  <div class="image-container">
+    <img (click)="goTo('https://github.com/gergomarcellturi/ask-away')" src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png">
+  </div>
+
+</div>
+
+</div>

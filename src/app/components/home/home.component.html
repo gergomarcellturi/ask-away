@@ -5,8 +5,7 @@
     <app-explore *ngSwitchCase="'explore'" [events]="eventsSubject.asObservable()"></app-explore>
     <app-questions *ngSwitchCase="'questions'"></app-questions>
     <app-profile *ngSwitchCase="'profile'"></app-profile>
-    <app-answers *ngSwitchCase="'answers'"></app-answers>
   </ng-container>
-
+  <app-footer #footerComponent></app-footer>
 </ng-container>
 
