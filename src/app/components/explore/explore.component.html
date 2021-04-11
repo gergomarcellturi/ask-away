@@ -4,16 +4,15 @@
 
   <div class="search-container" [@detailExpand]="exploreExpanded ? 'expanded' : 'collapsed'">
     <div class="search-input-container">
-<!--      <input class="search-input" placeholder="Search">-->
     </div>
     <div class="search-tag-container">
-        <tag-input class="search-tag-input" #tagInputElement
-          [placeholder]="'Tags'"
-          [secondaryPlaceholder]="'+ Add tags'"
-          [theme]="'search-tag-input-theme'"
-          [(ngModel)]="searchTags"
-          [modelAsStrings]="true">
-        </tag-input>
+      <tag-input class="search-tag-input" #tagInputElement
+                 [placeholder]="'Tags'"
+                 [secondaryPlaceholder]="'+ Add tags'"
+                 [theme]="'search-tag-input-theme'"
+                 [(ngModel)]="searchTags"
+                 [modelAsStrings]="true">
+      </tag-input>
     </div>
     <div class="search-button-container">
       <button class="button search-button" (click)="search()">Search</button>
@@ -31,7 +30,7 @@
              [style.background-color]="questionCardThemes[question.uid]?.transColor"
              [style.border-color]="questionCardThemes[question.uid]?.color">
           <div class="question-header-container" [style.background-color]="questionCardThemes[question.uid]?.color">
-            <h2 class="explore-question-header">
+            <h2 class="explore-question-header" matTooltip="{{question.question}}">
               {{question.question}}
             </h2>
             <div class="vote-container" *ngIf="question.votes | async as votes">
@@ -79,7 +78,6 @@
 
     </div>
   </div>
-
 
 
 </div>
