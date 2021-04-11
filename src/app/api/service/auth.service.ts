@@ -55,6 +55,10 @@ export class AuthService {
     })
   }
 
+  public getUserByUid = (uid: string): Observable<User> => {
+    return this.fireStore.doc<User>(`users/${uid}`).valueChanges();
+  }
+
   public emailSignUp = async (email: string, password: string): Promise<void> => {
     return this.fireAuth.createUserWithEmailAndPassword(email, password).then(credentials => {
       return this.updateUserData(credentials.user).then(() => this.router.navigate(['home'])).then();

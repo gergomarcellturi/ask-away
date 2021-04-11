@@ -35,6 +35,10 @@ export class QuestionService {
     })
   }
 
+  public getVotesForQuestionByQuestionUid = (uid: string): Observable<Question[]> => {
+    return this.firestore.collection<Question>(`questions/${uid}/votes`).valueChanges();
+  }
+
   public getAnswersForQuestionUid = (uid: string): Promise<Answer[]> => {
     return this.firestore.collection<Answer>(`questions/${uid}/answers`).get().toPromise().then(snap => {
       let answerArray = [];

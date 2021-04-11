@@ -2,6 +2,7 @@ import {User} from "./user.model";
 import firebase from "firebase";
 import {DocumentReference} from "@angular/fire/firestore";
 import {Tag} from "./Tag";
+import Timestamp = firebase.firestore.Timestamp;
 
 export class Question {
 
@@ -11,7 +12,7 @@ export class Question {
   public question!: string;
   public detail!: string;
   public submitter!:  DocumentReference<User>;
-  public timestamp!: firebase.firestore.FieldValue;
+  public timestamp!: Timestamp;
   public tags: DocumentReference<Tag>[];
   public tagList: Tag[];
 }
