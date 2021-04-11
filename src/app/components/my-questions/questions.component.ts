@@ -6,6 +6,7 @@ import {detailExpand} from "../../api/animations/animations";
 import {Observable, timer} from "rxjs";
 import {User} from "../../api/model/user.model";
 import {AuthService} from "../../api/service/auth.service";
+import {Vote} from "../../api/model/Votes";
 
 @Component({
   selector: 'app-questions',
@@ -16,7 +17,7 @@ import {AuthService} from "../../api/service/auth.service";
 export class QuestionsComponent implements OnInit {
 
   public selectedQuestion = null;
-  public questions: Promise<Question[]>
+  public questionsMap: Promise<Question[]>
   public answerMap: {[key: string]: Promise<Answer[]>} = {};
   public userMap: {[key: string]: Observable<User>} = {};
 
@@ -24,7 +25,7 @@ export class QuestionsComponent implements OnInit {
     public auth: AuthService,
     public questionService: QuestionService
   ) {
-    this.questions = questionService.getQuestionsForLoggedInUser();
+    this.questionsMap = questionService.getQuestionsForLoggedInUser();
   }
 
   async ngOnInit(): Promise<void> {
@@ -48,6 +49,10 @@ export class QuestionsComponent implements OnInit {
     })
   }
 
-
-
+  public evaluateVotes = (votes: Vote[]): string => {
+    if (votes.length === 0) return '50%';
+    let upvotes = votes.reduce((acc, vote) => acc += vote.vote , 0)
+    upvotes = upvotes || 0;
+    return `${((upvotes / votes.length) * 100).toString()}%`;
+  }
 }

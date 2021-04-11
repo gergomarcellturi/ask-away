@@ -98,7 +98,13 @@
   top: 0;
   left: 0;
   height: 5px;
-  width: 33%;
+  width: var(--progress-percentage);
+}
+
+.feedback-message {
+  width: 100%;
+  margin: 1rem auto;
+  text-align: center;
 }
 
 .progress-text {

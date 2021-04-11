@@ -3,6 +3,8 @@ import firebase from "firebase";
 import {DocumentReference} from "@angular/fire/firestore";
 import {Tag} from "./Tag";
 import Timestamp = firebase.firestore.Timestamp;
+import {Observable} from "rxjs";
+import {Vote} from "./Votes";
 
 export class Question {
 
@@ -15,4 +17,5 @@ export class Question {
   public timestamp!: Timestamp;
   public tags: DocumentReference<Tag>[];
   public tagList: Tag[];
+  public votes: Observable<Vote[]>;
 }

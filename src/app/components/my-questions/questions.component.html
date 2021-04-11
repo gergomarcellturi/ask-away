@@ -1,5 +1,10 @@
-<div class="my-questions-container" *ngIf="questions | async as questions">
+<div class="my-questions-container" *ngIf="questionsMap | async as questions">
 
+  <ng-container *ngIf="questions.length === 0">
+    <div class="feedback-message">
+      You have no questions so far :(
+    </div>
+  </ng-container>
 
   <div class="my-question-card-container" *ngFor="let question of questions">
     <div class="card">
@@ -8,11 +13,11 @@
         <h2>{{question.question}}</h2>
         <a class="timestamp">{{question.timestamp.toDate() | date: 'short'}}<i></i></a>
       </div>
-      <div class="card-detail-container">
+      <div class="card-detail-container" *ngIf="question.votes | async as votes">
         <div class="progress-container">
-          <div class="progress"></div>
+          <div class="progress" [style]="'--progress-percentage:' + evaluateVotes(votes)"></div>
           <span class="progress-text">
-					Votes
+					Votes: {{evaluateVotes(votes)}}
 				</span>
         </div>
         <h6>Detail</h6>

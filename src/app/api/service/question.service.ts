@@ -8,6 +8,7 @@ import {map} from "rxjs/operators";
 import {Observable} from "rxjs";
 import {Answer} from "../model/Answer";
 import {CommonService} from "./common.service";
+import {Vote} from "../model/Votes";
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class QuestionService {
     return await this.questionRef.ref.where('submitter', '==', this.auth.userRef).get().then(snapshot => {
       let questionArray = [];
       snapshot.docs.forEach(doc => {
-        questionArray = [...questionArray, {uid: doc.id, ...doc.data()}];
+        questionArray = [...questionArray, {uid: doc.id, ...doc.data(), votes: this.getVotesForQuestionByQuestionUid(doc.id)}];
       })
       return questionArray;
     })
@@ -37,6 +38,31 @@ export class QuestionService {
 
   public getVotesForQuestionByQuestionUid = (uid: string): Observable<Question[]> => {
     return this.firestore.collection<Question>(`questions/${uid}/votes`).valueChanges();
+  }
+
+  public voteQuestion = (questionUid: string, vote: number): void => {
+    const voteRef = this.firestore.collection<Vote>(`questions/${questionUid}/votes`).ref;
+    const data = {
+      vote,
+      voter: this.auth.userRef,
+    } as Vote;
+    voteRef.where('voter', '==', this.auth.userRef).get().then(snapshot => {
+      if (snapshot.docs[0].id) {
+        snapshot.docs[0].ref.update(data).then();
+      } else {
+        voteRef.add(data).then();
+      }
+    })
+  }
+
+  public getUserVoteForQuestion = (questionUid: string): Promise<Vote> => {
+    return this.firestore.collection<Vote>(`questions/${questionUid}/votes`).ref.where('voter', '==', this.auth.userRef).get().then(snapshot => {
+      if (snapshot.docs[0].id) {
+        return snapshot.docs[0].data();
+      } else {
+        return null;
+      }
+    });
   }
 
   public getAnswersForQuestionUid = (uid: string): Promise<Answer[]> => {
