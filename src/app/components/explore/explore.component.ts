@@ -47,7 +47,6 @@ export class ExploreComponent implements OnInit, OnDestroy {
   }
 
   public voteTest = (votes: Vote[]): number => {
-    console.log(votes);
     return votes.length;
   }
 
@@ -68,7 +67,6 @@ export class ExploreComponent implements OnInit, OnDestroy {
 
   public selectQuestion = (question: Question): void => {
     this.selectedQuestion = this.selectedQuestion === question ? null : question;
-    console.log(this.selectedQuestion);
   }
 
   public getRandomAnimationTime = (): { params: { time: number } } => {

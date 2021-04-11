@@ -2,11 +2,10 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {Question} from "../../api/model/Question";
 import {AuthService} from "../../api/service/auth.service";
 import {FormBuilder} from "@angular/forms";
-import {AngularFirestore, DocumentReference} from "@angular/fire/firestore";
+import {AngularFirestore} from "@angular/fire/firestore";
 import {QuestionService} from "../../api/service/question.service";
 import {detailExpand, fade, valueChanged} from "../../api/animations/animations";
 import {timer} from "rxjs";
-import {Tag} from "../../api/model/Tag";
 import {CommonService} from "../../api/service/common.service";
 
 @Component({
@@ -52,10 +51,6 @@ export class QuestionComponent implements OnInit {
     this.questionService.sendQuestion(this.question);
     this.expanded = false;
     timer(1500).subscribe(() => this.resetQuestion());
-  }
-
-  public log(data:any) {
-    console.log(data);
   }
 
   private resetQuestion = (): void => {

@@ -112,13 +112,7 @@ export class QuestionService {
     }));
   }
 
-  public getQuestionByUid = (uid: string): void => {
-    this.questionRef.doc(uid).get().subscribe(doc => console.log(doc.data()))
-  }
-
-
   public getRandomQuestionsByTags = (tags, limit = 10): Observable<Question[]> => {
-    console.log(tags);
     return this.firestore.collection<Question>('questions', ref => ref.where('tags', 'array-contains-any', tags))
       .get().pipe(map(snapshot => {
       return this.randomizeQuestions(snapshot, limit);

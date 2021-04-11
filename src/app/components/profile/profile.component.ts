@@ -17,7 +17,6 @@ export class ProfileComponent implements OnInit {
   }
 
   public save = (user: User): void => {
-    console.log(user);
     if (!user.displayName) return;
 
     this.auth.updateUserData(user, user.displayName).then(() => location.reload())

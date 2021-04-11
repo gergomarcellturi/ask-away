@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Subject} from "rxjs";
 import {AuthService} from "../../api/service/auth.service";
 import {FooterComponent} from "../footer/footer.component";
@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
     if (this.activeRoute === path) {
       this.emitEventToChild(path);
     }
-    console.log(this.footerComponentRef);
     if (path === 'about') {
       this.footerComponentRef.scrollElement.nativeElement.scrollIntoView({behavior: 'smooth'});
       return;
