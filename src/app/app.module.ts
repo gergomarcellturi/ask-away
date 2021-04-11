@@ -20,6 +20,7 @@ import { VarDirective } from './api/directive/var.directive';
 import { QuestionsComponent } from './components/my-questions/questions.component';
 import { AnswersComponent } from './components/answers/answers.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ProfileComponent } from './components/profile/profile.component';
         AppRoutingModule,
         BrowserAnimationsModule,
         FormsModule,
+        MatIconModule,
         MatSnackBarModule,
         TagInputModule,
         ReactiveFormsModule,

@@ -155,7 +155,11 @@
 }
 
 .vote-container {
-  width: 100px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  width: 10%;
+  float: right;
 }
 
 .answer-count-container {
