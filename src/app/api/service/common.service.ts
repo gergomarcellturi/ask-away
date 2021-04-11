@@ -1,12 +1,17 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {DocumentReference} from "@angular/fire/firestore";
+import {Tag} from "../model/Tag";
+import {QuestionService} from "./question.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
 
+
   constructor(
+    private injector: Injector,
     private snackbar: MatSnackBar,
   ) {
   }
@@ -15,13 +20,19 @@ export class CommonService {
     this.snackbar.open(message, 'Close', {duration});
   }
 
-  public generateRandomColor = (): string => {
-    return `#${Math.floor(Math.random() * (16777215)).toString(16)}`;
+  public createTags = async (tags: string[], questionService: QuestionService): Promise<DocumentReference<Tag>[]> => {
+    if (tags.length === 0) return null;
+    let tagList: DocumentReference<Tag>[] = [];
+    for (let tag of tags) {
+      let databaseTag = await questionService.getTagByName(tag)
+      tagList = [...tagList, databaseTag.uid ? databaseTag.ref : await questionService.saveTag(tag)]
+    }
+    return tagList;
   }
 
   public getDarkColor = (): string => {
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
       color += Math.floor(Math.random() * 10);
     }
     return color;

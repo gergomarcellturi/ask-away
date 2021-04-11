@@ -7,6 +7,7 @@ import {QuestionService} from "../../api/service/question.service";
 import {detailExpand, fade, valueChanged} from "../../api/animations/animations";
 import {timer} from "rxjs";
 import {Tag} from "../../api/model/Tag";
+import {CommonService} from "../../api/service/common.service";
 
 @Component({
   selector: 'app-question',
@@ -25,6 +26,7 @@ export class QuestionComponent implements OnInit {
     public auth: AuthService,
     public formBuilder: FormBuilder,
     public firestore: AngularFirestore,
+    public common: CommonService,
     public questionService: QuestionService,
   ) {
   }
@@ -46,20 +48,10 @@ export class QuestionComponent implements OnInit {
 
   public send = async (): Promise<void> => {
     if (!this.question.question) return;
-    this.question.tags = await this.createTags() || [(await this.questionService.getTagByName('general')).ref];
+    this.question.tags = await this.common.createTags(this.tags, this.questionService) || [(await this.questionService.getTagByName('general')).ref];
     this.questionService.sendQuestion(this.question);
     this.expanded = false;
     timer(1500).subscribe(() => this.resetQuestion());
-  }
-
-  public createTags = async (): Promise<DocumentReference<Tag>[]> => {
-    if (this.tags.length === 0) return null;
-    let tagList: DocumentReference<Tag>[] = [];
-    for (let tag of this.tags) {
-      let databaseTag = await this.questionService.getTagByName(tag)
-      tagList = [...tagList, databaseTag.uid ? databaseTag.ref : await this.questionService.saveTag(tag)]
-    }
-    return tagList;
   }
 
   public log(data:any) {

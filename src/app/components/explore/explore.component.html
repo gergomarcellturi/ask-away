@@ -4,7 +4,7 @@
 
   <div class="search-container" [@detailExpand]="exploreExpanded ? 'expanded' : 'collapsed'">
     <div class="search-input-container">
-      <input class="search-input" placeholder="Search">
+<!--      <input class="search-input" placeholder="Search">-->
     </div>
     <div class="search-tag-container">
         <tag-input class="search-tag-input" #tagInputElement
@@ -16,7 +16,7 @@
         </tag-input>
     </div>
     <div class="search-button-container">
-      <button class="button search-button">Search</button>
+      <button class="button search-button" (click)="search()">Search</button>
     </div>
   </div>
 

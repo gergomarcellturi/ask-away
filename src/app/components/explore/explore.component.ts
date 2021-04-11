@@ -27,7 +27,7 @@ export class ExploreComponent implements OnInit, OnDestroy {
   public tags$: Observable<Tag[]>;
   public questionCardThemes: {[key: string]: {color: string, transColor: string}} = {};
   public selectedQuestion: Question = null;
-  public searchTags: {value: string, display: string}[] = [];
+  public searchTags: string[] = [];
 
   constructor(
     public common: CommonService,
@@ -60,9 +60,10 @@ export class ExploreComponent implements OnInit, OnDestroy {
   }
 
   public addTagToSearch = (tag: Tag): void => {
-    console.log(this.tagInputElement);
-    if (!this.searchTags.some(searchTag => searchTag.value === tag.tag )) return;
-    this.searchTags = [...this.searchTags, {value: tag.tag , display: tag.tag}];
+    if (this.searchTags.some(searchTag => searchTag === tag.tag )) return;
+
+    this.exploreExpanded = true;
+    this.searchTags = [...this.searchTags, tag.tag];
   }
 
   public selectQuestion = (question: Question): void => {
@@ -80,6 +81,13 @@ export class ExploreComponent implements OnInit, OnDestroy {
     if (!question.answer) return;
 
     this.questionService.sendAnswer(question);
+    this.selectedQuestion = null;
+    this.common.openSnackbar('Answer submitted!');
+  }
+
+  public search = async (): Promise<void> => {
+    if (this.searchTags.length === 0 ) this.queryQuestions();
+    else this.questions$ = this.questionService.getRandomQuestionsByTags(await this.common.createTags(this.searchTags, this.questionService), 10)
   }
 
   public getTagDataByUidAndTagArray = (uid: string, tagarray: Tag[] ): Tag => {

@@ -5,6 +5,7 @@ import {Tag} from "./Tag";
 import Timestamp = firebase.firestore.Timestamp;
 import {Observable} from "rxjs";
 import {Vote} from "./Votes";
+import {Answer} from "./Answer";
 
 export class Question {
 
@@ -18,4 +19,5 @@ export class Question {
   public tags: DocumentReference<Tag>[];
   public tagList: Tag[];
   public votes: Observable<Vote[]>;
+  public answers: Promise<Answer[]>;
 }

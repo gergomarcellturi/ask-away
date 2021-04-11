@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import firebase from "firebase";
 import {Question} from "../model/Question";
 import {AngularFirestore, AngularFirestoreCollection, DocumentReference} from "@angular/fire/firestore";
@@ -16,12 +16,14 @@ import {Vote} from "../model/Votes";
 export class QuestionService {
   private questionRef: AngularFirestoreCollection<Question>;
   private tagRef: AngularFirestoreCollection<Tag>;
+  private auth;
 
   constructor(
-    public auth: AuthService,
+    private injector: Injector,
     public common: CommonService,
     public firestore: AngularFirestore,
   ) {
+    this.auth = injector.get(AuthService);
     this.questionRef = firestore.collection<Question>('questions');
     this.tagRef = firestore.collection<Tag>('tags');
   }
@@ -30,7 +32,7 @@ export class QuestionService {
     return await this.questionRef.ref.where('submitter', '==', this.auth.userRef).get().then(snapshot => {
       let questionArray = [];
       snapshot.docs.forEach(doc => {
-        questionArray = [...questionArray, {uid: doc.id, ...doc.data(), votes: this.getVotesForQuestionByQuestionUid(doc.id)}];
+        questionArray = [...questionArray, {uid: doc.id, ...doc.data(), votes: this.getVotesForQuestionByQuestionUid(doc.id), answers: this.getAnswersForQuestionUid(doc.id)}];
       })
       return questionArray;
     })
@@ -114,16 +116,28 @@ export class QuestionService {
     this.questionRef.doc(uid).get().subscribe(doc => console.log(doc.data()))
   }
 
-  public getRandomQuestions = (limit = 10): Observable<Question[]> => {
-    let uidArray = [];
-    return this.questionRef.get().pipe(map(snapshot => {
-      uidArray = snapshot.docs.map(doc => doc.id);
-      if (uidArray.length < limit) return this.getRandomQuestionsByUidsAndSnapshot(uidArray, snapshot);
-      else {
-        const randomUidArray = this.getRandomUids(limit, uidArray);
-        return this.getRandomQuestionsByUidsAndSnapshot(randomUidArray, snapshot);
-      }
+
+  public getRandomQuestionsByTags = (tags, limit = 10): Observable<Question[]> => {
+    console.log(tags);
+    return this.firestore.collection<Question>('questions', ref => ref.where('tags', 'array-contains-any', tags))
+      .get().pipe(map(snapshot => {
+      return this.randomizeQuestions(snapshot, limit);
     }))
+  }
+
+  public getRandomQuestions = (limit = 10): Observable<Question[]> => {
+    return this.questionRef.get().pipe(map(snapshot => {
+      return this.randomizeQuestions(snapshot, limit);
+    }))
+  }
+
+  public randomizeQuestions = (snapshot: firebase.firestore.QuerySnapshot<any>, limit = 10 ): Question[] => {
+    let uidArray = snapshot.docs.map(doc => doc.id);
+    if (uidArray.length < limit) return this.getRandomQuestionsByUidsAndSnapshot(uidArray, snapshot);
+    else {
+      const randomUidArray = this.getRandomUids(limit, uidArray);
+      return this.getRandomQuestionsByUidsAndSnapshot(randomUidArray, snapshot);
+    }
   }
 
   public getTagByName = async (tagName: string): Promise<Tag> => {

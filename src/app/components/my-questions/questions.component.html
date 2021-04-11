@@ -20,7 +20,9 @@
 					Votes: {{evaluateVotes(votes)}}
 				</span>
         </div>
-        <h6>Detail</h6>
+        <h6 *ngIf="question.answers | async as answers">
+          Answers: {{answers.length}}
+        </h6>
         <h2>{{question.detail}}</h2>
         <button class="btn" (click)="showAnswers(question)" matRipple>Show answers</button>
       </div>
