@@ -51,7 +51,7 @@ export class QuestionsComponent implements OnInit {
 
   public evaluateVotes = (votes: Vote[]): string => {
     if (votes.length === 0) return '50%';
-    let upvotes = votes.reduce((acc, vote) => acc += vote.vote , 0)
+    let upvotes = votes.reduce((acc, vote) => acc + vote.vote , 0)
     upvotes = upvotes || 0;
     return `${((upvotes / votes.length) * 100).toString()}%`;
   }
