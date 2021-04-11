@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Subject} from "rxjs";
+import {AuthService} from "../../api/service/auth.service";
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ export class HomeComponent implements OnInit {
   public eventsSubject: Subject<string> = new Subject<string>();
 
   constructor(
+    public auth: AuthService
   ) {
   }
 

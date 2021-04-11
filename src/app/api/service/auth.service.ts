@@ -61,16 +61,14 @@ export class AuthService {
 
   public emailSignUp = async (email: string, password: string): Promise<void> => {
     return this.fireAuth.createUserWithEmailAndPassword(email, password).then(credentials => {
-      return this.updateUserData(credentials.user).then(() => this.router.navigate(['home'])).then();
+      return this.updateUserData(credentials.user, credentials.user.email).then(() => this.router.navigate(['home'])).then();
     })
   }
 
   private signIn = async (provider: auth.AuthProvider): Promise<void> => {
-    console.log('signin')
     return this.fireAuth.signInWithPopup(provider).then(credentials => {
       return this.updateUserData(credentials.user).then(() => this.router.navigate(['home']))
         .catch(err => {
-          console.log(err);
           this.common.openSnackbar(err.message)
           return err;
         });

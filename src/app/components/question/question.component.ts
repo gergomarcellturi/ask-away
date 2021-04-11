@@ -18,7 +18,7 @@ export class QuestionComponent implements OnInit {
 
   public question: Question = {detail: null} as Question;
   public questionCheckbox = false;
-  public tags: string[];
+  public tags: string[] = [];
   public expanded = false;
 
   constructor(
@@ -46,14 +46,14 @@ export class QuestionComponent implements OnInit {
 
   public send = async (): Promise<void> => {
     if (!this.question.question) return;
-    this.question.tags = await this.createTags();
-    console.log(this.question.tags);
+    this.question.tags = await this.createTags() || [(await this.questionService.getTagByName('general')).ref];
     this.questionService.sendQuestion(this.question);
     this.expanded = false;
     timer(1500).subscribe(() => this.resetQuestion());
   }
 
   public createTags = async (): Promise<DocumentReference<Tag>[]> => {
+    if (this.tags.length === 0) return null;
     let tagList: DocumentReference<Tag>[] = [];
     for (let tag of this.tags) {
       let databaseTag = await this.questionService.getTagByName(tag)

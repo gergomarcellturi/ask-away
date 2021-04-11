@@ -6,6 +6,7 @@ import {QuestionService} from "../../api/service/question.service";
 import {Observable, Subscription} from "rxjs";
 import {Tag} from "../../api/model/Tag";
 import {TagInputForm} from "ngx-chips";
+import {Vote} from "../../api/model/Votes";
 
 @Component({
   selector: 'app-explore',
@@ -43,6 +44,15 @@ export class ExploreComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.eventSub.unsubscribe();
+  }
+
+  public voteTest = (votes: Vote[]): number => {
+    console.log(votes);
+    return votes.length;
+  }
+
+  public castVote = (questionUid: string, vote: number): void => {
+    this.questionService.voteQuestion(questionUid, vote);
   }
 
   public reSelect = (path: string): void => {

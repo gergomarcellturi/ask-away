@@ -34,8 +34,10 @@
             <h2 class="explore-question-header">
               {{question.question}}
             </h2>
-            <div class="vote-container">
-              <span class="vote-span"><mat-icon>thumb_down</mat-icon> <mat-icon>thumb_up</mat-icon></span>
+            <div class="vote-container" *ngIf="question.votes | async as votes">
+              <span class="vote-span">
+                <mat-icon (click)="castVote(question.uid, 0)" [ngClass]="votes[0]?.vote === 0 && 'vote-selected'">thumb_down</mat-icon>
+                <mat-icon (click)="castVote(question.uid, 1)" [ngClass]="votes[0]?.vote === 1 && 'vote-selected'">thumb_up</mat-icon></span>
             </div>
           </div>
           <div class="question-body">
@@ -43,7 +45,10 @@
 
               <ng-container *ngFor="let tag of question.tags">
                 <ng-container *ngVar="getTagDataByUidAndTagArray(tag.id, tags) as tagData">
-                <span class="explore-tag-element" [style.background-color]="tagData?.color" (click)="addTagToSearch(tagData)">
+                <span class="explore-tag-element"
+                      [style.background-color]="tagData?.color + 'DD'"
+                      [style.border-color]="tagData?.color "
+                      (click)="addTagToSearch(tagData)">
                   {{tagData?.tag}}
                 </span>
                 </ng-container>

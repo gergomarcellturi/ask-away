@@ -40,6 +40,10 @@ export class QuestionService {
     return this.firestore.collection<Question>(`questions/${uid}/votes`).valueChanges();
   }
 
+  public getUserVoteForQuestionByQuestionUid = (uid: string): Observable<Question[]> => {
+    return this.firestore.collection<Question>(`questions/${uid}/votes`, ref => ref.where('voter', '==', this.auth.userRef)).valueChanges();
+  }
+
   public voteQuestion = (questionUid: string, vote: number): void => {
     const voteRef = this.firestore.collection<Vote>(`questions/${questionUid}/votes`).ref;
     const data = {
@@ -47,7 +51,7 @@ export class QuestionService {
       voter: this.auth.userRef,
     } as Vote;
     voteRef.where('voter', '==', this.auth.userRef).get().then(snapshot => {
-      if (snapshot.docs[0].id) {
+      if (snapshot.docs[0]?.id) {
         snapshot.docs[0].ref.update(data).then();
       } else {
         voteRef.add(data).then();
@@ -147,6 +151,7 @@ export class QuestionService {
   }
 
   private getRandomQuestionsByUidsAndSnapshot = (uids: string[], snapshot: firebase.firestore.QuerySnapshot<Question>): Question[] => {
-    return snapshot.docs.filter(doc => uids.some(uid => uid === doc.id)).map(doc => Object.assign({}, {uid: doc.id}, doc.data()))
+    return snapshot.docs.filter(doc => uids.some(uid => uid === doc.id))
+      .map(doc => Object.assign({}, {uid: doc.id, votes: this.getUserVoteForQuestionByQuestionUid(doc.id)}, doc.data()))
   }
 }

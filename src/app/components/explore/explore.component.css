@@ -50,12 +50,16 @@
   padding: .6rem;
 }
 
-.explore-question:hover {
-  transform: translate(2);
+.vote-selected {
+  transition: .4s;
+  color: var(--primary-color);
+  text-shadow: 1px 1px var(--primary-color-faded);
 }
 
 .vote-span {
-  float: right;
+  transition: .4s;
+  cursor: pointer;
+  /*float: right;*/
   text-align: right;
   margin-left: auto;
 }
@@ -104,7 +108,8 @@
   text-align: center;
   color: var(--base-font-color);
   border-radius: 1em;
-  background: var(--secondary-color);
+  background: var(--secondary-color-faded);
+  border: solid 2px var(--secondary-color);
   outline: 0;
   cursor: pointer;
   padding: 6px;

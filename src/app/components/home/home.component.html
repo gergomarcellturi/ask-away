@@ -1,9 +1,12 @@
-<app-header (activatedRoute)="activatedRoute($event)"></app-header>
-<app-question></app-question>
-<ng-container [ngSwitch]="activeRoute">
-  <app-explore *ngSwitchCase="'explore'" [events]="eventsSubject.asObservable()"></app-explore>
-  <app-questions *ngSwitchCase="'questions'"></app-questions>
-  <app-profile *ngSwitchCase="'profile'"></app-profile>
-  <app-answers *ngSwitchCase="'answers'"></app-answers>
+<ng-container *ngIf="auth.user$ | async">
+  <app-header (activatedRoute)="activatedRoute($event)"></app-header>
+  <app-question></app-question>
+  <ng-container [ngSwitch]="activeRoute">
+    <app-explore *ngSwitchCase="'explore'" [events]="eventsSubject.asObservable()"></app-explore>
+    <app-questions *ngSwitchCase="'questions'"></app-questions>
+    <app-profile *ngSwitchCase="'profile'"></app-profile>
+    <app-answers *ngSwitchCase="'answers'"></app-answers>
+  </ng-container>
+
 </ng-container>
 
