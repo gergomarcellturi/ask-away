@@ -39,8 +39,8 @@
 
 .vote-selected {
   transition: .4s;
-  color: var(--primary-color);
-  text-shadow: 1px 1px var(--primary-color-faded);
+  color: var(--secondary-color);
+  text-shadow: 1px 1px var(--secondary-color-faded-dark);
 }
 
 .vote-span {
