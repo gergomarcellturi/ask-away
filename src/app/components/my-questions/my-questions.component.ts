@@ -10,11 +10,11 @@ import {Vote} from "../../api/model/Votes";
 
 @Component({
   selector: 'app-questions',
-  templateUrl: './questions.component.html',
-  styleUrls: ['./questions.component.css'],
+  templateUrl: './my-questions.component.html',
+  styleUrls: ['./my-questions.component.css'],
   animations: [detailExpand]
 })
-export class QuestionsComponent implements OnInit {
+export class MyQuestionsComponent implements OnInit {
 
   public selectedQuestion = null;
   public questionsMap: Promise<Question[]>

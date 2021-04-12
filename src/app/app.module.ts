@@ -17,7 +17,7 @@ import {TagInputModule} from "ngx-chips";
 import {MatRippleModule} from "@angular/material/core";
 import {ExploreComponent} from './components/explore/explore.component';
 import {VarDirective} from './api/directive/var.directive';
-import {QuestionsComponent} from './components/my-questions/questions.component';
+import {MyQuestionsComponent} from './components/my-questions/my-questions.component';
 import {AnswersComponent} from './components/answers/answers.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {MatIconModule} from "@angular/material/icon";
@@ -33,7 +33,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     QuestionComponent,
     ExploreComponent,
     VarDirective,
-    QuestionsComponent,
+    MyQuestionsComponent,
     AnswersComponent,
     ProfileComponent,
     FooterComponent
