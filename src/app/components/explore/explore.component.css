@@ -23,6 +23,7 @@
 .explore-question {
   width: 100%;
   display: inline-block;
+  word-break: break-word;
   box-sizing: border-box;
   flex: 1 0 33%;
   margin: 1rem 0;
