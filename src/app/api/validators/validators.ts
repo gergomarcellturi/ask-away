@@ -1,6 +1,6 @@
 import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from "@angular/forms";
 
-export function emailFormatValidator(control: AbstractControl): { [key: string]: any } | null {
+export function emailFormatValidator(control: AbstractControl): ValidationErrors  | null {
   return new RegExp('^([a-z0-9_-]+.?)*[a-z0-9-+]+@[a-z0-9.-]+\\.[a-z]{2,4}$').test(control.value) ?
     null : {invalidEmailFormat: true};
 }

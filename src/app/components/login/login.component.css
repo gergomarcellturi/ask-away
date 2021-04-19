@@ -99,6 +99,8 @@
 
 .login-container {
   overflow: hidden;
+  position: relative;
+  z-index: 1000000;
   height: auto;
   display: flex;
   flex-direction: column;
